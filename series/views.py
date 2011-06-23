@@ -16,6 +16,10 @@ def index(request):
 
 def show(request, soap_id):
     soap = Soap.objects.get(id=soap_id)
+    if request.method == 'POST':
+        f = SoapForm(request.POST, instance=soap)
+        f.save()
+        soap = Soap.objects.get(id=soap_id)
     return render_to_response(
         'show.html', 
         {
@@ -28,6 +32,17 @@ def new(request):
     return render_to_response(
         'new.html', 
         {
+            'soap_form':  soap_form
+        }
+    )
+
+def edit(request, soap_id):
+    soap = Soap.objects.get(id=soap_id)
+    soap_form = SoapForm(instance=soap)
+    return render_to_response(
+        'edit.html', 
+        {
+            'soap': soap,
             'soap_form':  soap_form
         }
     )
