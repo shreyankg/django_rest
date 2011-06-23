@@ -1,0 +1,6 @@
+<h1>Soaps</h1>
+{% for soap in soaps %}
+    <p><a href="{% url series:show 1 %}">{{ soap.name }}</a>: {{ soap.no_of_seasons }} Seasons</p>
+{% endfor %}
+
+<a href="{% url series:new %}">New Soap</a>
