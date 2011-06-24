@@ -16,7 +16,7 @@ def index(request):
 
 def show(request, soap_id):
     soap = Soap.objects.get(id=soap_id)
-    if request.method == 'POST':
+    if request.method == 'PUT':
         f = SoapForm(request.POST, instance=soap)
         f.save()
         soap = Soap.objects.get(id=soap_id)

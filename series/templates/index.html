@@ -1,10 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
 <h1>Soaps</h1>
 {% for soap in soaps %}
     <p>
       <a href="{% url series:show soap.id %}">{{ soap.name }}</a>
        : {{ soap.no_of_seasons }} Seasons
-       (<a href="{% url series:edit soap.id %}">Edit</a>)
+       (<a href="{% url series:edit soap.id %}">Edit</a> | 
+            <a href="{% url series:show soap.id %}" method="delete"
+            rel="nofollow" confirm="Are you sure?">Delete</a>)
     </p>
 {% endfor %}
 <br />
 <a href="{% url series:new %}">New Soap</a>
+
+{% endblock %}

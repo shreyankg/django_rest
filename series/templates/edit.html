@@ -1,5 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+
 <h1>Edit Soap: {{ soap.name }}</h1>
-<form action="{% url series:show soap.id %}" method="post">
+<form action="{% url series:show soap.id %}" method="put">
   {{ soap_form.as_p }}
 <input type="submit" value="Submit" />
 </form>
+
+{% endblock %}
