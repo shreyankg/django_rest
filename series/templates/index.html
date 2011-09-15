@@ -8,7 +8,7 @@
       <a href="{% url series:show soap.id %}">{{ soap.name }}</a>
        : {{ soap.no_of_seasons }} Seasons
        (<a href="{% url series:edit soap.id %}">Edit</a> | 
-            <a href="{% url series:show soap.id %}" method="delete"
+            <a href="{% url series:delete soap.id %}" method="delete"
             rel="nofollow" confirm="Are you sure?">Delete</a>)
     </p>
 {% endfor %}
