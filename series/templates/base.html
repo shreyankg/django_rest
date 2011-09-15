@@ -2,13 +2,27 @@
 <html>
 <head>
 <title>Django REST Demo</title>
-<script src="http://stage.swcert.lab.eng.pnq.redhat.com:8080/static/jquery-1.5.2.min.js">
+<script src="{% url static 'jquery-1.6.1.min.js' %}">
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
  $("a[confirm]").click(function(event) {
     msg = $(this).attr("confirm");
-    if (!confirm(msg)) return false;
+    if (!confirm(msg)) {
+      event.stopPropagation();
+      return false;
+    }
+  });
+ $("a[method]").click(function(event) {
+    if (event.isPropagationStopped()) return;
+    href = $(this).attr("href");
+    method = $(this).attr("method").toUpperCase();
+    form = $('<form method="post" action="' + href + '"></form>');
+    metadata_input = '<input id="method_middleware_transform" value="' 
+      + method + '" name="method_middleware_transform" type="hidden">';
+    form.hide().append(metadata_input).appendTo('body');
+    form.submit();
+    return false;
   });
 });
 </script>

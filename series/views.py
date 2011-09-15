@@ -1,11 +1,12 @@
 # Create your views here.
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from models import Soap, SoapForm
 
 def index(request):
     if request.method == 'POST':
-        soap = SoapForm(request.POST)
-        soap.save()
+        f = SoapForm(request.POST)
+        soap = f.save()
+        return redirect('series:show', soap_id=soap.id)
     soaps = Soap.objects.all()
     return render_to_response(
         'index.html', 
@@ -19,7 +20,10 @@ def show(request, soap_id):
     if request.method == 'PUT':
         f = SoapForm(request.POST, instance=soap)
         f.save()
-        soap = Soap.objects.get(id=soap_id)
+        return redirect('series:show', soap_id=soap_id)
+    if request.method == 'DELETE':
+        soap.delete()
+        return redirect('series:index')
     return render_to_response(
         'show.html', 
         {
